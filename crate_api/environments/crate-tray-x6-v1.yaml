@@ -1,0 +1,364 @@
+targets:
+  main:
+    resources:
+    - USBSerialPort:
+        name: 'usb'
+        match:
+          ID_PATH: !template "$LG_CRATE_ID_PATH.2.4.4:1.0"
+    - PowerPort:
+        name: 'usb-0'
+        index: 0
+    - PowerPort:
+        name: 'usb-1'
+        index: 1
+    - PowerPort:
+        name: 'usb-2'
+        index: 2
+    - USBSerialPort:
+        name: 'relay'
+        match:
+          ID_PATH: !template "$LG_CRATE_ID_PATH.2.2:1.0"
+    - PowerPort:
+        name: 'system'
+        index: 7
+        invert: false
+    - PowerPort:
+        name: 'system2'
+        index: 8
+        invert: false
+    - USBNetworkInterface:
+        match:
+          ID_PATH: !template "$LG_CRATE_ID_PATH.2.1.4:1.0"
+    drivers:
+    - CGMDSUHPowerDriver:
+        name: 'power-autoeth'
+        bindings:
+          port: 'usb'
+          channel: 'usb-0'
+    - CGMDSUHPowerDriver:
+        name: 'power-can'
+        bindings:
+          port: 'usb'
+          channel: 'usb-1'
+    - CGMDSUHPowerDriver:
+        name: 'power-relay'
+        bindings:
+          port: 'usb'
+          channel: 'usb-2'
+    - NCDProXRPowerDriver:
+        name: 'power-system'
+        bindings:
+          port: 'relay'
+          channel: 'system'
+    - NCDProXRPowerDriver:
+        name: 'power-system2'
+        bindings:
+          port: 'relay'
+          channel: 'system2'
+    - EthernetLinuxDriver:
+        name: 'autoeth'
+
+
+
+  '1':
+    resources:
+    - USBSerialPort:
+        name: 'power'
+        match:
+          ID_PATH: !template "$LG_CRATE_ID_PATH.2.2:1.0"
+    - PowerPort:
+        name: 'power-channel'
+        index: 0
+        invert: false
+    - USBSerialPort:
+        name: 'usb'
+        match:
+          ID_PATH: !template "$LG_CRATE_ID_PATH.2.4.4:1.0"
+    - PowerPort:
+        name: 'usb-0'
+        index: 0
+    - USBCANPort:
+        match:
+          '@ID_PATH': !template "$LG_CRATE_ID_PATH.3.1.1"
+        index: 0
+    drivers:
+    - CGMDSUHPowerDriver:
+        name: 'power-usb'
+        bindings:
+          port: 'usb'
+          channel: 'usb-0'
+    - NCDProXRPowerDriver:
+        name: 'power-dut'
+        bindings:
+          port: 'power'
+          channel: 'power-channel'
+    - CANDriver:
+        bitrate: 33333
+
+  '2':
+    resources:
+    - USBSerialPort:
+        name: 'power'
+        match:
+          ID_PATH: !template "$LG_CRATE_ID_PATH.2:1.0"
+    - PowerPort:
+        name: 'power-channel'
+        index: 1
+        invert: false
+    - USBSerialPort:
+        name: 'usb'
+        match:
+          ID_PATH: !template "$LG_CRATE_ID_PATH.4.4:1.0"
+    - PowerPort:
+        name: 'usb-1'
+        index: 1
+    - USBCANPort:
+        match:
+          '@ID_PATH': !template "$LG_CRATE_ID_PATH.3.1.1"
+        index: 1
+    drivers:
+    - CGMDSUHPowerDriver:
+        name: 'power-usb'
+        bindings:
+          port: 'usb'
+          channel: 'usb-1'
+    - NCDProXRPowerDriver:
+        name: 'power-dut'
+        bindings:
+          port: 'power'
+          channel: 'power-channel'
+    - CANDriver:
+        bitrate: 1000000
+
+  '3':
+    resources:
+    - USBSerialPort:
+        name: 'power'
+        match:
+          ID_PATH: !template "$LG_CRATE_ID_PATH.2:1.0"
+    - PowerPort:
+        name: 'power-channel'
+        index: 2
+        invert: false
+    - USBSerialPort:
+        name: 'usb'
+        match:
+          ID_PATH: !template "$LG_CRATE_ID_PATH.4.4:1.0"
+    - PowerPort:
+        name: 'usb-2'
+        index: 2
+    - USBCANPort:
+        match:
+          '@ID_PATH': !template "$LG_CRATE_ID_PATH.3.1.2"
+        index: 0
+    drivers:
+    - CGMDSUHPowerDriver:
+        name: 'power-usb'
+        bindings:
+          port: 'usb'
+          channel: 'usb-2'
+    - NCDProXRPowerDriver:
+        name: 'power-dut'
+        bindings:
+          port: 'power'
+          channel: 'power-channel'
+    - CANDriver:
+        bitrate: 1000000
+
+  '4':
+    resources:
+    - USBSerialPort:
+        name: 'power'
+        match:
+          ID_PATH: !template "$LG_CRATE_ID_PATH.2:1.0"
+    - PowerPort:
+        name: 'power-channel'
+        index: 3
+        invert: false
+    - USBSerialPort:
+        name: 'usb'
+        match:
+          ID_PATH: !template "$LG_CRATE_ID_PATH.4.4:1.0"
+    - PowerPort:
+        name: 'usb-3'
+        index: 3
+    - USBCANPort:
+        match:
+          '@ID_PATH': !template "$LG_CRATE_ID_PATH.3.1.2"
+        index: 1
+    drivers:
+    - CGMDSUHPowerDriver:
+        name: 'power-usb'
+        bindings:
+          port: 'usb'
+          channel: 'usb-3'
+    - NCDProXRPowerDriver:
+        name: 'power-dut'
+        bindings:
+          port: 'power'
+          channel: 'power-channel'
+    - CANDriver:
+        bitrate: 1000000
+
+  '5':
+    resources:
+    - USBSerialPort:
+        name: 'power'
+        match:
+          ID_PATH: !template "$LG_CRATE_ID_PATH.2:1.0"
+    - PowerPort:
+        name: 'power-channel'
+        index: 4
+        invert: false
+    - USBSerialPort:
+        name: 'usb'
+        match:
+          ID_PATH: !template "$LG_CRATE_ID_PATH.4.4:1.0"
+    - PowerPort:
+        name: 'usb-4'
+        index: 4
+    - USBCANPort:
+        match:
+          '@ID_PATH': !template "$LG_CRATE_ID_PATH.3.1.2"
+        index: 0
+    drivers:
+    - CGMDSUHPowerDriver:
+        name: 'power-usb'
+        bindings:
+          port: 'usb'
+          channel: 'usb-4'
+    - NCDProXRPowerDriver:
+        name: 'power-dut'
+        bindings:
+          port: 'power'
+          channel: 'power-channel'
+    - CANDriver:
+        bitrate: 1000000
+
+  '6':
+    resources:
+    - USBSerialPort:
+        name: 'power'
+        match:
+          ID_PATH: !template "$LG_CRATE_ID_PATH.2:1.0"
+    - PowerPort:
+        name: 'power-channel'
+        index: 5
+        invert: false
+    - USBSerialPort:
+        name: 'usb'
+        match:
+          ID_PATH: !template "$LG_CRATE_ID_PATH.4.4:1.0"
+    - PowerPort:
+        name: 'usb-5'
+        index: 5
+    - USBCANPort:
+        match:
+          '@ID_PATH': !template "$LG_CRATE_ID_PATH.3.1.2"
+        index: 1
+    drivers:
+    - CGMDSUHPowerDriver:
+        name: 'power-usb'
+        bindings:
+          port: 'usb'
+          channel: 'usb-5'
+    - NCDProXRPowerDriver:
+        name: 'power-dut'
+        bindings:
+          port: 'power'
+          channel: 'power-channel'
+    - CANDriver:
+        bitrate: 1000000
+
+  '7':
+    resources:
+    - USBSerialPort:
+        name: 'power'
+        match:
+          ID_PATH: !template "$LG_CRATE_ID_PATH.2:1.0"
+    - PowerPort:
+        name: 'power-channel'
+        index: 6
+        invert: false
+    - USBSerialPort:
+        name: 'usb'
+        match:
+          ID_PATH: !template "$LG_CRATE_ID_PATH.4.4:1.0"
+    - PowerPort:
+        name: 'usb-6'
+        index: 6
+    drivers:
+    - NCDProXRPowerDriver:
+        name: 'power-dut'
+        bindings:
+          port: 'power'
+          channel: 'power-channel'
+    - CGMDSUHPowerDriver:
+        name: 'power-usb'
+        bindings:
+          port: 'usb'
+          channel: 'usb-6'
+
+  '8':
+    resources:
+    - USBSerialPort:
+        name: 'power'
+        match:
+          ID_PATH: !template "$LG_CRATE_ID_PATH.2:1.0"
+    - PowerPort:
+        name: 'power-channel'
+        index: 7
+        invert: false
+    - USBSerialPort:
+        name: 'usb'
+        match:
+          ID_PATH: !template "$LG_CRATE_ID_PATH.4.4:1.0"
+    - PowerPort:
+        name: 'usb-7'
+        index: 7
+    drivers:
+    - NCDProXRPowerDriver:
+        name: 'power-dut'
+        bindings:
+          port: 'power'
+          channel: 'power-channel'
+    - CGMDSUHPowerDriver:
+        name: 'power-usb'
+        bindings:
+          port: 'usb'
+          channel: 'usb-7'
+
+  '9':
+    resources:
+    - USBSerialPort:
+        name: 'usb'
+        match:
+          ID_PATH: !template "$LG_CRATE_ID_PATH.4.4:1.0"
+    - PowerPort:
+        name: 'usb-8'
+        index: 8
+    drivers:
+    - CGMDSUHPowerDriver:
+        name: 'power-usb'
+        bindings:
+          port: 'usb'
+          channel: 'usb-8'
+
+
+  '10':
+    resources:
+    - USBSerialPort:
+        name: 'usb'
+        match:
+          ID_PATH: !template "$LG_CRATE_ID_PATH.4.4:1.0"
+    - PowerPort:
+        name: 'usb-9'
+        index: 9
+    drivers:
+    - CGMDSUHPowerDriver:
+        name: 'power-usb'
+        bindings:
+          port: 'usb'
+          channel: 'usb-9'
+                                 
+

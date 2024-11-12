@@ -1,0 +1,38 @@
+[build-system]
+requires = [
+    "setuptools>=47.2.0",
+    "setuptools_scm[toml]",
+]
+
+[project]
+name = "crate_api"
+dynamic = ["version"]  # via setuptools_scm
+authors = [
+    { name = "Kurt Snieckus", email = "kurt.snieckus@bgnetworks.com" },
+]
+description = "BG Networks API for CRATE Hardware"
+readme = "README.md"
+requires-python = ">=3.6"
+classifiers = [
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3.6",
+]
+dependencies = [
+    "labgrid; platform_system == 'Linux'",
+    "python-can",
+    "importlib_resources", # move to importlib.resouces once `requires-python = ">=3.10"`
+    "adafruit-circuitpython-ina260" # only needed for rpi in crate-m (restrict to arm64?)
+]
+
+[project.optional-dependencies]
+scapy = ["scapy"]
+
+[tool.setuptools]
+packages = ["crate_api", "crate_api.driver", "crate_api.resource",
+ 	    "crate_api.util", "crate_api.environments"]
+
+[tool.setuptools_scm]
+local_scheme = "no-local-version"
+version_scheme = "no-guess-dev"
+root = ".."
+
