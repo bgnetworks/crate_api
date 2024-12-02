@@ -34,8 +34,7 @@ if platform.system() == 'Linux':
     from labgrid.driver import SerialDriver
     from labgrid.protocol import PowerProtocol
     from labgrid.driver.exception import ExecutionError
-
-    import subprocess
+    from labgrid.exceptions import NoResourceFoundError
 
     def get_lg_crate_id_path():
         # To find the udev ID_PATH prefix for the connected crate hardware, we check both ttyUSB0 and ttyUSB1.
@@ -43,27 +42,25 @@ if platform.system() == 'Linux':
         # Match against a hard coded suffix to identify which is the hub.
         usb_hub_suffix = ".4.4:1.0"
         usb_hub_id_path = ""
-        for i in range(2):
-            try:
-                udevadm_info = subprocess.run(
-                    ["udevadm", "info", "/sys/class/tty/ttyUSB" + str(i)],
-                    shell=False,
-                    capture_output=True,
-                    text=True,
-                    check=True,
-                ).stdout
-                id_path_substring = next(
-                    filter(lambda substring: "ID_PATH=" in substring, udevadm_info.splitlines())
-                )
-                if id_path_substring.endswith(usb_hub_suffix):
-                    usb_hub_id_path = id_path_substring
-            except subprocess.CalledProcessError as e:
-                logger.critical('(Is the CRATE Hardware connected?)')
-                raise e
+        devs = []
+        import pyudev
+        context = pyudev.Context()
 
-        # Look for the usb hub 
-        usb_hub_id_root = usb_hub_id_path.removeprefix("E: ID_PATH=")
-        usb_hub_id_root = usb_hub_id_root[0:usb_hub_id_root.index(usb_hub_suffix)]
+        for device in context.list_devices(subsystem='tty', ID_VENDOR_ID='0403'):
+            if device['ID_MODEL_ID'] != '6001':
+                continue
+            id_path_substring = device['ID_PATH']
+            if id_path_substring.endswith(usb_hub_suffix):
+                usb_hub_id_path = id_path_substring
+            devs.append(str(device))
+
+        if usb_hub_id_path == "":
+            raise NoResourceFoundError(
+                'Could not find CRATE usb control serial port. (Is the CRATE Hardware connected?)',
+                found=devs)
+
+        # trim off the usb_hub_suffix
+        usb_hub_id_root = usb_hub_id_path[0:usb_hub_id_path.index(usb_hub_suffix)]
         print("Using USB Hub Base Path: ", usb_hub_id_root)
         return usb_hub_id_root
     
