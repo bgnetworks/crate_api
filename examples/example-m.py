@@ -6,6 +6,8 @@ logger = logging.getLogger(__name__)
 
 import can
 from crate_api import Environment
+import crate_api.resource.busio_i2cport
+import crate_api.driver.ina260driver
 
 crate = Environment('crate-m-v1.yaml').get_target()
 

@@ -88,13 +88,11 @@ else:
 
 from crate_api.resource.powerport import PowerPort
 from crate_api.resource.canport import USBCANPort
-from crate_api.resource.busio_i2cport import BusIO_I2CPort
 
 from crate_api.driver.ncdproxrpowerdriver import NCDProXRPowerDriver
 from crate_api.driver.cgmdsuhpowerdriver import CGMDSUHPowerDriver
 from crate_api.driver.candriver import CANDriver
 from crate_api.driver.ethdriver import EthernetLinuxDriver
-from crate_api.driver.ina260driver import INA260Driver
 from crate_api.driver.bluetooth import nRF52Bluetooth
 
 # Environment loading

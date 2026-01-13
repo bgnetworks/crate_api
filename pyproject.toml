@@ -25,6 +25,10 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
+ble = [
+    "blatann",
+    "pc-ble-driver-py @ https://github.com/embedded-community/pc-ble-driver-py/releases/download/v0.17.12/pc_ble_driver_py-0.17.12-cp38-abi3-linux_x86_64.whl"
+    ]
 scapy = ["scapy"]
 crate_m = ["adafruit-circuitpython-ina260"] # only needed for rpi in crate-m
 
