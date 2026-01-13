@@ -20,12 +20,13 @@ classifiers = [
 dependencies = [
     "labgrid; platform_system == 'Linux'",
     "python-can",
+    "psutil", # for BluetoothSnifferAPI
     "importlib_resources", # move to importlib.resouces once `requires-python = ">=3.10"`
-    "adafruit-circuitpython-ina260" # only needed for rpi in crate-m (restrict to arm64?)
 ]
 
 [project.optional-dependencies]
 scapy = ["scapy"]
+crate_m = ["adafruit-circuitpython-ina260"] # only needed for rpi in crate-m
 
 [tool.setuptools]
 packages = ["crate_api", "crate_api.driver", "crate_api.resource",

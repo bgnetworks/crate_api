@@ -1,0 +1,302 @@
+targets:
+  main:
+    resources:
+    - USBSerialPort:
+        name: 'usb-control'
+        match:
+          ID_PATH: !template "$LG_CRATE_ID_PATH.4.4:1.0"
+    - PowerPort:
+        name: 'usb-1'
+        index: 0
+    - PowerPort:
+        name: 'usb-2'
+        index: 1
+    - PowerPort:
+        name: 'usb-3'
+        index: 2
+    - PowerPort:
+        name: 'usb-4'
+        index: 3
+    - PowerPort:
+        name: 'usb-5'
+        index: 4
+    - PowerPort:
+        name: 'usb-6'
+        index: 5
+    - PowerPort:
+        name: 'usb-7'
+        index: 6
+    - PowerPort:
+        name: 'usb-8'
+        index: 7
+    - PowerPort:
+        name: 'usb-9'
+        index: 8
+    - PowerPort:
+        name: 'usb-10'
+        index: 9
+
+    - USBSerialPort:
+        name: 'relay-control'
+        match:
+          ID_PATH: !template "$LG_CRATE_ID_PATH.2:1.0"
+    - PowerPort:
+        name: 'relay-1'
+        index: 0
+        invert: false
+    - PowerPort:
+        name: 'relay-2'
+        index: 1
+        invert: false
+    - PowerPort:
+        name: 'relay-3'
+        index: 2
+        invert: false
+    - PowerPort:
+        name: 'relay-4'
+        index: 3
+        invert: false
+    - PowerPort:
+        name: 'relay-5'
+        index: 4
+        invert: false
+    - PowerPort:
+        name: 'relay-6'
+        index: 5
+        invert: false
+    - PowerPort:
+        name: 'relay-7'
+        index: 6
+        invert: false
+    - PowerPort:
+        name: 'relay-8'
+        index: 7
+        invert: false
+
+    - USBCANPort:
+        name: '1'
+        match:
+          '@ID_PATH': !template "$LG_CRATE_ID_PATH.3.1.1"
+        index: 0
+    - USBCANPort:
+        name: '2'
+        match:
+          '@ID_PATH': !template "$LG_CRATE_ID_PATH.3.1.1"
+        index: 1
+    - USBCANPort:
+        name: '3'
+        match:
+          '@ID_PATH': !template "$LG_CRATE_ID_PATH.3.1.2"
+        index: 0
+    - USBCANPort:
+        name: '4'
+        match:
+          '@ID_PATH': !template "$LG_CRATE_ID_PATH.3.1.2"
+        index: 1
+    - USBCANPort:
+        name: '5'
+        match:
+          '@ID_PATH': !template "$LG_CRATE_ID_PATH.3.1.3"
+        index: 0
+    - USBCANPort:
+        name: '6'
+        match:
+          '@ID_PATH': !template "$LG_CRATE_ID_PATH.3.1.3"
+        index: 1
+          
+    - USBNetworkInterface:
+        name: 'autoeth'
+        match:
+          ID_PATH: !template "$LG_CRATE_ID_PATH.1.2:1.0"
+
+    - USBSerialPort:
+        name: 'rs485-1'
+        match:
+          ID_PATH: !template "$LG_CRATE_ID_PATH.3.3:1.0"
+    - USBSerialPort:
+        name: 'rs485-2'
+        match:
+          ID_PATH: !template "$LG_CRATE_ID_PATH.3.3:1.1"
+    - USBSerialPort:
+        name: 'rs485-3'
+        match:
+          ID_PATH: !template "$LG_CRATE_ID_PATH.3.3:1.2"
+    - USBSerialPort:
+        name: 'rs485-4'
+        match:
+          ID_PATH: !template "$LG_CRATE_ID_PATH.3.3:1.3"
+
+    - USBNetworkInterface:
+        name: 'wifi-1'
+        match:
+          ID_PATH: !template "$LG_CRATE_ID_PATH.3.4:1.3"
+
+    - USBSerialPort:
+        name: 'nrf52-connect'
+        match:
+          ID_VENDOR_ID: '1915'
+          ID_MODEL_ID: 'c00a'
+
+    - USBSerialPort:
+        name: 'nrf52-sniffer'
+        match:
+          ID_VENDOR_ID: '1915'
+          ID_MODEL_ID: '522a'
+
+# DRIVERS
+
+    drivers:
+    - CGMDSUHPowerDriver:
+        name: 'internal-autoeth'
+        bindings:
+          port: 'usb-control'
+          channel: 'usb-1'
+    - CGMDSUHPowerDriver:
+        name: 'internal-can'
+        bindings:
+          port: 'usb-control'
+          channel: 'usb-2'
+    - CGMDSUHPowerDriver:
+        name: 'internal-relay'
+        bindings:
+          port: 'usb-control'
+          channel: 'usb-3'
+    - CGMDSUHPowerDriver:
+        name: 'usb-managed-1'
+        bindings:
+          port: 'usb-control'
+          channel: 'usb-4'
+    - CGMDSUHPowerDriver:
+        name: 'usb-managed-2'
+        bindings:
+          port: 'usb-control'
+          channel: 'usb-5'
+    - CGMDSUHPowerDriver:
+        name: 'usb-managed-3'
+        bindings:
+          port: 'usb-control'
+          channel: 'usb-6'
+    - CGMDSUHPowerDriver:
+        name: 'usb-managed-4'
+        bindings:
+          port: 'usb-control'
+          channel: 'usb-7'
+    - CGMDSUHPowerDriver:
+        name: 'usb-managed-5'
+        bindings:
+          port: 'usb-control'
+          channel: 'usb-8'
+    - CGMDSUHPowerDriver:
+        name: 'unused-9'
+        bindings:
+          port: 'usb-control'
+          channel: 'usb-9'
+    - CGMDSUHPowerDriver:
+        name: 'unused-10'
+        bindings:
+          port: 'usb-control'
+          channel: 'usb-10'
+
+    - NCDProXRPowerDriver:
+        name: 'dut-1'
+        bindings:
+          port: 'relay-control'
+          channel: 'relay-1'
+    - NCDProXRPowerDriver:
+        name: 'dut-2'
+        bindings:
+          port: 'relay-control'
+          channel: 'relay-2'
+    - NCDProXRPowerDriver:
+        name: 'dut-3'
+        bindings:
+          port: 'relay-control'
+          channel: 'relay-3'
+    - NCDProXRPowerDriver:
+        name: 'dut-4'
+        bindings:
+          port: 'relay-control'
+          channel: 'relay-4'
+    - NCDProXRPowerDriver:
+        name: 'dut-5'
+        bindings:
+          port: 'relay-control'
+          channel: 'relay-5'
+    - NCDProXRPowerDriver:
+        name: 'dut-6'
+        bindings:
+          port: 'relay-control'
+          channel: 'relay-6'
+    - NCDProXRPowerDriver:
+        name: 'unused-7'
+        bindings:
+          port: 'relay-control'
+          channel: 'relay-7'
+    - NCDProXRPowerDriver:
+        name: 'internal-system'
+        bindings:
+          port: 'relay-control'
+          channel: 'relay-8'
+
+    - CANDriver:
+        name: '1'
+        bindings:
+          port: '1'
+    - CANDriver:
+        name: '2'
+        bindings:
+          port: '2'
+    - CANDriver:
+        name: '3'
+        bindings:
+          port: '3'
+    - CANDriver:
+        name: '4'
+        bindings:
+          port: '4'
+    - CANDriver:
+        name: '5'
+        bindings:
+          port: '5'
+    - CANDriver:
+        name: '6'
+        bindings:
+          port: '6'
+
+    - EthernetLinuxDriver:
+        name: 'autoeth'
+        bindings:
+          port: 'autoeth'
+
+    - SerialDriver:
+        name: 'rs485-1'
+        bindings:
+          port: 'rs485-1'
+    - SerialDriver:
+        name: 'rs485-2'
+        bindings:
+          port: 'rs485-2'
+    - SerialDriver:
+        name: 'rs485-3'
+        bindings:
+          port: 'rs485-3'
+    - SerialDriver:
+        name: 'rs485-4'
+        bindings:
+          port: 'rs485-4'
+
+    - EthernetLinuxDriver:
+        name: 'wifi'
+        # desc: 'WiFi Adapter'
+        bindings:
+          port: 'wifi-1'
+
+    - nRF52Bluetooth:
+        name: 'connect'
+        bindings:
+          port: 'nrf52-connect'
+
+    - nRF52Bluetooth:
+        name: 'sniffer'
+        bindings:
+          port: 'nrf52-sniffer'
