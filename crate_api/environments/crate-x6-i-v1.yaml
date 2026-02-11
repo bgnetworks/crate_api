@@ -129,7 +129,7 @@ targets:
     - USBNetworkInterface:
         name: 'wifi-1'
         match:
-          ID_PATH: !template "$LG_CRATE_ID_PATH.3.4:1.3"
+          ID_PATH: !template "$LG_CRATE_ID_PATH.4.1:1.3"
 
     - USBSerialPort:
         name: 'nrf52-connect'

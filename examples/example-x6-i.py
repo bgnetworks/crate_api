@@ -16,7 +16,7 @@ crate.get_driver("PowerProtocol", name="internal-system").on()
 ## Turn on all USB Power Drivers
 usb_power_channels = ['internal-autoeth', 'internal-can', 'internal-relay',
                       'usb-managed-1', 'usb-managed-2', 'usb-managed-3',
-                      'usb-managed-4', 'usb-managed-5', 'unused-9', 'unused-10']
+                      'usb-managed-4', 'usb-managed-5']
 for name in usb_power_channels:
     crate.get_driver('PowerProtocol', name=name).on()
 
@@ -38,7 +38,8 @@ try:
     print('rs485-1 serial port:', rs485_1.serial.port)
     rs485_1.serial.baudrate = 9600
     rs485_1.write(b'hello port 1 world')
-    print('rs485_1.read():', rs485_1.read(18, timeout=1))
+    # uncomment below to test loopback on port 1:
+    #print('rs485_1.read():', rs485_1.read(18, timeout=1))
 except Exception as e:
     import traceback
     traceback.print_exc()
